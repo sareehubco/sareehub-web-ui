@@ -1,0 +1,21 @@
+.section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  padding: 8px 64px 40px;
+}
+
+.banner {
+  position: relative;
+  display: block;
+  border-radius: 10px;
+  overflow: hidden;
+  min-height: 220px;
+}
+
+@media (max-width: 900px) {
+  .section {
+    grid-template-columns: 1fr;
+    padding: 8px 20px 32px;
+  }
+}

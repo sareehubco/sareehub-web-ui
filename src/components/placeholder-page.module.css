@@ -1,0 +1,17 @@
+.page {
+  padding: 64px 32px;
+  text-align: center;
+  min-height: 50vh;
+}
+
+.page h1 {
+  font-size: 2rem;
+  color: var(--maroon, #6b1d2c);
+  margin-bottom: 12px;
+}
+
+.page p {
+  color: var(--text-muted, #6b5c53);
+  max-width: 480px;
+  margin: 0 auto;
+}

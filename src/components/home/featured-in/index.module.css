@@ -1,0 +1,23 @@
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding: 24px 64px 48px;
+  color: var(--text-muted);
+}
+
+.label {
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-right: 16px;
+}
+
+.brand {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  opacity: 0.6;
+}

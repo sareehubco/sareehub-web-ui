@@ -1,0 +1,138 @@
+.newsletter {
+  background: var(--maroon-dark);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 24px 32px;
+  text-align: center;
+}
+
+.newsletterForm {
+  display: flex;
+  gap: 8px;
+}
+
+.newsletterForm input {
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: none;
+  min-width: 220px;
+  font-size: 0.85rem;
+}
+
+.newsletterForm button {
+  background: var(--gold);
+  color: var(--maroon-dark);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.newsletterForm button:hover {
+  filter: brightness(1.05);
+}
+
+.footer {
+  background: var(--cream-2);
+  padding: 40px 32px 24px;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footerBrand p {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.footerCol h3 {
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+
+.footerCol ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footerCol a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.footerCol a:hover {
+  color: var(--maroon);
+}
+
+.socialRow {
+  display: flex;
+  gap: 12px;
+}
+
+.socialRow a {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--maroon);
+}
+
+.bottomBar {
+  max-width: 1200px;
+  margin: 32px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.paymentIcons {
+  display: flex;
+  gap: 8px;
+}
+
+.paymentIcons span {
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.7rem;
+  background: var(--cream);
+}
+
+@media (max-width: 900px) {
+  .footerGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .footerGrid {
+    grid-template-columns: 1fr;
+  }
+}
