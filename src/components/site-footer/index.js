@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import styles from "./site-footer.module.css";
+import styles from "./index.module.css";
 
 const FOOTER_COLUMNS = [
   {

@@ -7,7 +7,7 @@ const PromoBanners = () => {
     <section className={styles.section}>
       <Link href="/collections/handloom" className={styles.banner}>
         <Image
-          src="/images/banner-handloom.jpg"
+          src="/images/promo/big.png"
           alt="Handloom Treasures — Woven With Heritage. Pure. Authentic. Timeless."
           fill
           sizes="(max-width: 900px) 100vw, 66vw"
@@ -17,7 +17,7 @@ const PromoBanners = () => {
 
       <Link href="/collections/daily-wear" className={styles.banner}>
         <Image
-          src="/images/banner-everyday.jpg"
+          src="/images/promo/small.png"
           alt="Everyday Elegance — Grace In Everyday Life. Lightweight sarees for your beautiful everyday."
           fill
           sizes="(max-width: 900px) 100vw, 33vw"

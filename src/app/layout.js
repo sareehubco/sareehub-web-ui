@@ -6,6 +6,9 @@ import SiteFooter from "@/components/site-footer";
 export const metadata = {
   title: "SareeHub",
   description: "Handpicked, handwoven sarees from across India.",
+  icons: {
+    icon: "/favicon-lotus.png",
+  },
 };
 
 export default function RootLayout({ children }) {

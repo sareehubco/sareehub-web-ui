@@ -10,7 +10,7 @@
   display: block;
   border-radius: 10px;
   overflow: hidden;
-  min-height: 220px;
+  min-height: 400px;
 }
 
 @media (max-width: 900px) {

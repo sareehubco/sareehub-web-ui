@@ -1,15 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
-import ArrowIcon from "@/components/arrow-icon";
+import ArrowIcon from "@/icons/arrow-icon";
 import styles from "./index.module.css";
 
 const COLLECTIONS = [
-  { label: "Bridal Collection", href: "/collections/bridal", image: "/images/banner-bridal.jpg", position: "80% center", tone: "#4f1420" },
-  { label: "New Arrivals", href: "/new-arrivals", image: "/images/banner-new-arrivals.jpg", position: "75% center", tone: "#163a2d" },
-  { label: "Festive Collection", href: "/collections/festive", image: "/images/banner-festive.jpg", position: "70% center", tone: "#8a6323" },
-  { label: "Party Wear", href: "/collections/party-wear", image: null, tone: "#241536" },
-  { label: "Daily Wear", href: "/collections/daily-wear", image: "/images/banner-everyday.jpg", position: "75% center", tone: "#16323a" },
-  { label: "Handloom Treasures", href: "/collections/handloom", image: "/images/banner-handloom.jpg", position: "20% center", tone: "#2f6b52" },
+  { label: "Bridal Collection", href: "/collections/bridal", image: "/images/collections/bridal.png", tone: "#4f1420" },
+  { label: "New Arrivals", href: "/new-arrivals", image: "/images/collections/newarrival.png", tone: "#163a2d" },
+  { label: "Festive Collection", href: "/collections/festive", image: "/images/collections/festive.png", tone: "#8a6323" },
+  { label: "Party Wear", href: "/collections/party-wear", image: "/images/collections/party.png", tone: "#241536" },
+  { label: "Daily Wear", href: "/collections/daily-wear", image: "/images/collections/dailywear.png", tone: "#16323a" },
+  { label: "Handloom Treasures", href: "/collections/handloom", image: "/images/collections/handloom.png", tone: "#2f6b52" },
 ];
 
 const ShopByCollection = () => {
@@ -36,7 +36,7 @@ const ShopByCollection = () => {
                 alt={collection.label}
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 16vw"
-                style={{ objectFit: "cover", objectPosition: collection.position }}
+                style={{ objectFit: "cover" }}
               />
             )}
             <span className={styles.cardLabel}>

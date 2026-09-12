@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { userLogin, userLogout } from "@/actions/UserActions";
-import styles from "./main-header.module.css";
+import styles from "./index.module.css";
 
 const ANNOUNCEMENTS = [
   "Free shipping on orders above ₹999 | Easy Returns | Authentic Handlooms",

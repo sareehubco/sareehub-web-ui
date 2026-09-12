@@ -1,4 +1,4 @@
-import styles from "./placeholder-page.module.css";
+import styles from "./index.module.css";
 
 const PlaceholderPage = ({ title, description }) => {
   return (

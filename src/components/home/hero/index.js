@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import ArrowIcon from "@/components/arrow-icon";
+import ArrowIcon from "@/icons/arrow-icon";
 import styles from "./index.module.css";
 
 const SLIDES = [
-  { image: "/images/banner-festival.png", alt: "Tradition Never Fades — Discover timeless sarees for every story, every celebration.", href: "/collections" },
+  { image: "/images/banner-festive.png", alt: "Tradition Never Fades — Discover timeless sarees for every story, every celebration.", href: "/collections" },
   { image: "/images/banner-bridal.png", alt: "Bridal Collection — For Your Biggest Moments.", href: "/collections/bridal" },
   { image: "/images/banner-handloom.png", alt: "Handloom Treasures — Woven With Heritage.", href: "/collections/handloom" },
 ];

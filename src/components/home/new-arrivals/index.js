@@ -3,12 +3,12 @@ import Image from "next/image";
 import styles from "./index.module.css";
 
 const PRODUCTS = [
-  { name: "Maroon Kanjivaram Silk", price: "₹6,999", image: "/images/banner-tradition.jpg", position: "85% center" },
-  { name: "Bridal Red Silk Saree", price: "₹12,999", image: "/images/banner-bridal.jpg", position: "90% top" },
-  { name: "Pastel Green Organza", price: "₹4,499", image: "/images/banner-new-arrivals.jpg", position: "85% top" },
-  { name: "Ivory Gold Silk Saree", price: "₹7,499", image: "/images/banner-festive.jpg", position: "80% top" },
-  { name: "Handwoven Zari Saree", price: "₹8,999", image: "/images/banner-handloom.jpg", position: "15% center" },
-  { name: "Dusty Pink Cotton Saree", price: "₹3,499", image: "/images/banner-everyday.jpg", position: "88% top" },
+  { name: "Maroon Kanjivaram Silk", price: "₹6,999", image: "/images/newArrivals/NewArrival1.png", position: "85% center" },
+  { name: "Bridal Red Silk Saree", price: "₹12,999", image: "/images/newArrivals/NewArrival2.png", position: "90% top" },
+  { name: "Pastel Green Organza", price: "₹4,499", image: "/images/newArrivals/NewArrival3.png", position: "85% top" },
+  { name: "Ivory Gold Silk Saree", price: "₹7,499", image: "/images/newArrivals/NewArrival4.png", position: "80% top" },
+  { name: "Handwoven Zari Saree", price: "₹8,999", image: "/images/newArrivals/NewArrival5.png", position: "15% center" },
+  { name: "Dusty Pink Cotton Saree", price: "₹3,499", image: "/images/newArrivals/NewArrival6.png", position: "88% top" },
 ];
 
 const NewArrivals = () => {
