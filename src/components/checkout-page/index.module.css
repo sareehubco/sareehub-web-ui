@@ -1,0 +1,384 @@
+.page {
+  padding: 32px 64px 64px;
+}
+
+.page > h1 {
+  font-size: 1.7rem;
+  margin-bottom: 24px;
+}
+
+.empty {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.empty a {
+  background: var(--maroon);
+  color: var(--cream);
+  text-decoration: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Stepper */
+
+.stepper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 36px;
+}
+
+.stepItemWrap {
+  display: flex;
+  align-items: center;
+}
+
+.stepItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stepCircle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cream-2);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.stepCircleActive {
+  background: var(--maroon);
+  color: var(--cream);
+}
+
+.stepLabel {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.stepLabelActive {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.stepConnector {
+  width: 60px;
+  height: 1px;
+  background: var(--border);
+  margin: 0 14px;
+}
+
+/* Layout */
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 40px;
+  align-items: start;
+}
+
+.main h2 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+/* Form */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 480px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.field input,
+.field select {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text-dark);
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--maroon);
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.checkboxField {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.checkboxField input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--maroon);
+}
+
+/* Payment */
+
+.paymentOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 420px;
+  margin-bottom: 16px;
+}
+
+.paymentOption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.paymentOptionActive {
+  border-color: var(--maroon);
+  background: var(--cream-2);
+}
+
+.paymentOption input {
+  accent-color: var(--maroon);
+  width: 16px;
+  height: 16px;
+}
+
+.note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+/* Review */
+
+.reviewBlock {
+  max-width: 420px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.reviewBlock h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.reviewBlock p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Step actions */
+
+.stepActions {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.continueBtn {
+  display: inline-block;
+  background: var(--maroon);
+  color: var(--cream);
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+
+.continueBtn:hover {
+  background: var(--maroon-dark);
+}
+
+.continueBtn:disabled {
+  background: var(--border);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.backBtn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-dark);
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+/* Order summary */
+
+.summary {
+  position: sticky;
+  top: 24px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.summary h2 {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.summaryTotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: var(--serif);
+  color: var(--maroon);
+  padding-top: 12px;
+  margin-bottom: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.summaryItems {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.summaryItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.summaryItemImage {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+
+.summaryItemName {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.summaryItemPrice {
+  font-size: 0.85rem;
+  color: var(--maroon);
+  font-weight: 700;
+}
+
+/* Order placed */
+
+.placedState {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.placedIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--maroon);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.placedState h1 {
+  font-size: 1.6rem;
+}
+
+.placedState p {
+  color: var(--text-muted);
+}
+
+.placedTotal {
+  font-weight: 700;
+  color: var(--text-dark) !important;
+  margin-bottom: 20px !important;
+}
+
+@media (max-width: 900px) {
+  .page {
+    padding: 24px 20px 48px;
+  }
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .fieldRow {
+    grid-template-columns: 1fr;
+  }
+  .stepConnector {
+    width: 30px;
+  }
+}

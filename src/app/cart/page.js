@@ -1,12 +1,7 @@
-import PlaceholderPage from "@/components/placeholder-page";
+import CartPage from "@/components/cart-page";
 
 export const metadata = { title: "Cart — SareeHub" };
 
-export default function CartPage() {
-  return (
-    <PlaceholderPage
-      title="Your Cart"
-      description="Your cart is empty — shopping is coming soon."
-    />
-  );
+export default function Page() {
+  return <CartPage />;
 }

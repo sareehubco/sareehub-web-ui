@@ -1,0 +1,93 @@
+.pageHeader {
+  position: relative;
+  overflow: hidden;
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+}
+
+.pageHeaderScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(20, 8, 8, 0.75) 0%, rgba(20, 8, 8, 0.35) 55%, rgba(20, 8, 8, 0.05) 100%);
+}
+
+.pageHeaderContent {
+  position: relative;
+  padding: 56px 64px;
+}
+
+.pageHeaderContent h1 {
+  color: var(--cream);
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+.pageHeaderContent p {
+  color: var(--cream);
+  opacity: 0.9;
+  font-size: 1rem;
+  max-width: 480px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 360px));
+  justify-content: center;
+  gap: 40px;
+  padding: 40px 80px 64px;
+}
+
+.card {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 10px;
+  overflow: hidden;
+  color: var(--cream);
+  text-decoration: none;
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  background: var(--maroon-dark);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, transparent 35%, rgba(20, 8, 8, 0.8) 100%);
+}
+
+.cardInfo {
+  position: relative;
+  z-index: 2;
+}
+
+.cardInfo h3 {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  color: var(--cream);
+  margin-bottom: 4px;
+}
+
+.cardTagline {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 32px 20px 48px;
+  }
+  .pageHeaderContent {
+    padding: 40px 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

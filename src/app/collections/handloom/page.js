@@ -1,12 +1,15 @@
-import PlaceholderPage from "@/components/placeholder-page";
+import CollectionDetail from "@/components/collection-detail";
+import { PRODUCTS } from "./data";
 
 export const metadata = { title: "Handloom Treasures — SareeHub" };
 
 export default function HandloomPage() {
   return (
-    <PlaceholderPage
+    <CollectionDetail
       title="Handloom Treasures"
-      description="Woven with heritage, supporting Indian weavers — coming soon."
+      subtitle="Rooted in tradition, woven with heritage."
+      bannerImage="/images/banners/handloom.png"
+      products={PRODUCTS}
     />
   );
 }
