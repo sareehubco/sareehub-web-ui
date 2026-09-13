@@ -1,15 +1,16 @@
 import CollectionDetail from "@/components/collection-detail";
-import { PRODUCTS } from "./data";
+import productService from "@/api/ProductService";
 
 export const metadata = { title: "Festive Collection — SareeHub" };
 
-export default function FestiveCollectionPage() {
+export default async function FestiveCollectionPage() {
+  const products = await productService.getProductsByCategory("festive");
   return (
     <CollectionDetail
       title="Festive Collection"
       subtitle="Celebrate every moment in style."
       bannerImage="/images/banners/festive.png"
-      products={PRODUCTS}
+      products={products}
     />
   );
 }

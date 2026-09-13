@@ -7,33 +7,31 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { removeItem, setQuantity } from "@/store/slice/CartSlice";
 import { toggleItem } from "@/store/slice/WishlistSlice";
 import { clearBuyNowItem } from "@/store/buyNowItem";
-import { ALL_PRODUCTS } from "@/app/collections/all-products";
+import { useAllProducts } from "@/hooks/useAllProducts";
+import HeartIcon from "@/icons/heart-icon";
+import LockIcon from "@/icons/lock-icon";
+import RefreshIcon from "@/icons/refresh-icon";
+import { capitalize, formatPrice } from "@/lib/format";
+import { calculateOrderTotals } from "@/lib/pricing";
 import styles from "./index.module.css";
-
-const TAX_RATE = 0.12;
-
-function capitalize(text) {
-  return text ? text.charAt(0).toUpperCase() + text.slice(1) : text;
-}
 
 const CartPage = () => {
   const dispatch = useAppDispatch();
   const items = useAppSelector((state) => state.cart.items);
   const wishlistSlugs = useAppSelector((state) => new Set(state.wishlist.items.map((item) => item.slug)));
+  const allProducts = useAllProducts();
 
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const tax = Math.round(subtotal * TAX_RATE);
-  const total = subtotal + tax;
+  const { itemCount, subtotal, tax, total } = calculateOrderTotals(items);
 
   const recommendations = useMemo(() => {
     const cartSlugs = new Set(items.map((item) => item.slug));
-    return ALL_PRODUCTS.filter((product) => !cartSlugs.has(product.slug)).slice(0, 4);
-  }, [items]);
+    return allProducts.filter((product) => !cartSlugs.has(product.slug)).slice(0, 4);
+  }, [items, allProducts]);
 
   return (
     <main className={styles.page}>
       <div className={styles.header}>
-        <h1>Your Cart ({items.reduce((sum, item) => sum + item.quantity, 0)} items)</h1>
+        <h1>Your Cart ({itemCount} items)</h1>
         <Link href="/sarees" className={styles.continueLink}>
           Continue Shopping
         </Link>
@@ -93,11 +91,9 @@ const CartPage = () => {
                 </div>
 
                 <div className={styles.itemPriceCol}>
-                  <div className={styles.itemLineTotal}>
-                    ₹{(item.price * item.quantity).toLocaleString("en-IN")}
-                  </div>
+                  <div className={styles.itemLineTotal}>{formatPrice(item.price * item.quantity)}</div>
                   {item.quantity > 1 && (
-                    <div className={styles.itemUnitPrice}>₹{item.price.toLocaleString("en-IN")} each</div>
+                    <div className={styles.itemUnitPrice}>{formatPrice(item.price)} each</div>
                   )}
                 </div>
               </div>
@@ -108,7 +104,7 @@ const CartPage = () => {
             <h2>Order Summary</h2>
             <div className={styles.summaryRow}>
               <span>Subtotal</span>
-              <span>₹{subtotal.toLocaleString("en-IN")}</span>
+              <span>{formatPrice(subtotal)}</span>
             </div>
             <div className={styles.summaryRow}>
               <span>Shipping</span>
@@ -116,11 +112,11 @@ const CartPage = () => {
             </div>
             <div className={styles.summaryRow}>
               <span>Estimated Tax</span>
-              <span>₹{tax.toLocaleString("en-IN")}</span>
+              <span>{formatPrice(tax)}</span>
             </div>
             <div className={styles.summaryTotal}>
               <span>Total</span>
-              <span>₹{total.toLocaleString("en-IN")}</span>
+              <span>{formatPrice(total)}</span>
             </div>
 
             <Link href="/checkout" className={styles.checkoutBtn} onClick={() => clearBuyNowItem()}>
@@ -128,8 +124,8 @@ const CartPage = () => {
             </Link>
 
             <div className={styles.trustList}>
-              <div className={styles.trustItem}><LockIcon /> Secure Payments</div>
-              <div className={styles.trustItem}><RefreshIcon /> Easy Returns</div>
+              <div className={styles.trustItem}><LockIcon size={16} /> Secure Payments</div>
+              <div className={styles.trustItem}><RefreshIcon size={16} /> Easy Returns</div>
               <div className={styles.trustItem}><TruckIcon /> Free Shipping on orders above ₹999</div>
             </div>
           </div>
@@ -160,7 +156,7 @@ const CartPage = () => {
                       )
                     }
                   >
-                    <HeartIcon filled={isWishlisted} />
+                    <HeartIcon size={15} filled={isWishlisted} />
                   </button>
                   <Link href={`/sarees/${product.slug}`} className={styles.recCardLink}>
                     <div className={styles.recImageWrap}>
@@ -173,7 +169,7 @@ const CartPage = () => {
                       />
                     </div>
                     <div className={styles.recName}>{product.name}</div>
-                    <div className={styles.recPrice}>₹{product.price.toLocaleString("en-IN")}</div>
+                    <div className={styles.recPrice}>{formatPrice(product.price)}</div>
                   </Link>
                 </div>
               );
@@ -197,26 +193,6 @@ function TrashIcon() {
   );
 }
 
-function LockIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="4" y="11" width="16" height="9" rx="2" />
-      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
-    </svg>
-  );
-}
-
-function RefreshIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 12a9 9 0 0 1 15.3-6.4L21 8" />
-      <path d="M21 3v5h-5" />
-      <path d="M21 12a9 9 0 0 1-15.3 6.4L3 16" />
-      <path d="M3 21v-5h5" />
-    </svg>
-  );
-}
-
 function TruckIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -224,14 +200,6 @@ function TruckIcon() {
       <path d="M15 10h4l3 3v4h-7z" />
       <circle cx="6" cy="19" r="2" />
       <circle cx="17" cy="19" r="2" />
-    </svg>
-  );
-}
-
-function HeartIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z" />
     </svg>
   );
 }

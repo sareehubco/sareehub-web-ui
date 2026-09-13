@@ -1,4 +1,6 @@
 import Image from "next/image";
+import ShieldIcon from "@/icons/shield-icon";
+import PersonIcon from "@/icons/person-icon";
 import styles from "./index.module.css";
 
 const FEATURES = [
@@ -6,13 +8,13 @@ const FEATURES = [
     key: "authentic",
     title: "Authentic Products",
     description: "Sourced directly from real weavers.",
-    icon: <ShieldIcon />,
+    icon: <ShieldIcon size={22} />,
   },
   {
     key: "artisans",
     title: "Support Artisans",
     description: "Empowering local weaving communities.",
-    icon: <HandsIcon />,
+    icon: <PersonIcon size={22} />,
   },
   {
     key: "quality",
@@ -76,24 +78,6 @@ const AboutPage = () => {
 };
 
 export default AboutPage;
-
-function ShieldIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z" />
-      <path d="M9 12l2 2 4-4" />
-    </svg>
-  );
-}
-
-function HandsIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="8" r="4" />
-      <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" />
-    </svg>
-  );
-}
 
 function BadgeIcon() {
   return (

@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { userLogout } from "@/actions/UserActions";
+import { useOrders } from "@/hooks/useOrders";
+import { formatPrice } from "@/lib/format";
 import styles from "./index.module.css";
 
 const NAV_ITEMS = [
@@ -19,30 +21,6 @@ const NAV_ITEMS = [
 
 const ORDER_TABS = ["All Orders", "Processing", "Shipped", "Delivered"];
 
-const ORDERS = [
-  {
-    id: "SH12345",
-    date: "12 Aug 2025",
-    status: "Delivered",
-    total: 14997,
-    images: ["/images/collections/bridal.png", "/images/collections/festive.png", "/images/collections/handloom.png"],
-  },
-  {
-    id: "SH12344",
-    date: "25 Jul 2025",
-    status: "Shipped",
-    total: 9998,
-    images: ["/images/collections/party.png", "/images/collections/dailywear.png"],
-  },
-  {
-    id: "SH12343",
-    date: "10 Jul 2025",
-    status: "Delivered",
-    total: 6999,
-    images: ["/images/collections/workwear.png"],
-  },
-];
-
 const STATUS_STYLE = {
   Delivered: "statusDelivered",
   Shipped: "statusShipped",
@@ -52,6 +30,7 @@ const STATUS_STYLE = {
 const AccountDashboard = () => {
   const dispatch = useAppDispatch();
   const { authenticated, firstName, lastName, email, phone } = useAppSelector((state) => state.user);
+  const orders = useOrders(authenticated);
   const [section, setSection] = useState("orders");
   const [orderTab, setOrderTab] = useState("All Orders");
 
@@ -66,7 +45,7 @@ const AccountDashboard = () => {
   }
 
   const filteredOrders =
-    orderTab === "All Orders" ? ORDERS : ORDERS.filter((order) => order.status === orderTab);
+    orderTab === "All Orders" ? orders : orders.filter((order) => order.status === orderTab);
 
   return (
     <div className={styles.layout}>
@@ -95,7 +74,7 @@ const AccountDashboard = () => {
           <>
             <h1>Welcome back, {firstName}!</h1>
             <p className={styles.emptyState}>
-              You have {ORDERS.length} orders on your account. Use the menu on the left to manage your orders,
+              You have {orders.length} orders on your account. Use the menu on the left to manage your orders,
               addresses, and profile.
             </p>
           </>
@@ -147,7 +126,7 @@ const AccountDashboard = () => {
                         </div>
                       </div>
                       <div className={styles.orderRight}>
-                        <div className={styles.orderTotal}>₹{order.total.toLocaleString("en-IN")}</div>
+                        <div className={styles.orderTotal}>{formatPrice(order.total)}</div>
                         <button type="button" className={styles.viewDetailsBtn}>
                           View Details
                         </button>

@@ -4,11 +4,16 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { getDerivedProductInfo } from "@/app/collections/product-derived";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { addItem } from "@/store/slice/CartSlice";
 import { toggleItem } from "@/store/slice/WishlistSlice";
 import { setBuyNowItem } from "@/store/buyNowItem";
+import HeartIcon from "@/icons/heart-icon";
+import LockIcon from "@/icons/lock-icon";
+import RefreshIcon from "@/icons/refresh-icon";
+import ShieldIcon from "@/icons/shield-icon";
+import GlobeIcon from "@/icons/globe-icon";
+import { capitalize, formatPrice } from "@/lib/format";
 import styles from "./index.module.css";
 
 const COLORS = [
@@ -29,16 +34,14 @@ const TABS = [
   { key: "reviews", label: "Reviews" },
 ];
 
-function capitalize(text) {
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
-
 const ProductDetail = ({ product, categoryMeta }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const isWishlisted = useAppSelector((state) => state.wishlist.items.some((item) => item.slug === product.slug));
+  // rating/reviewCount/stock/discountPercent/originalPrice/seller/sellerRating/sellerRatingCount
+  // are merged onto `product` by ProductService.getProductBySlug — see src/api/ProductService.js.
   const { rating, reviewCount, stock, discountPercent, originalPrice, seller, sellerRating, sellerRatingCount } =
-    getDerivedProductInfo(product);
+    product;
   const [selectedColor, setSelectedColor] = useState(product.color);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("description");
@@ -94,8 +97,8 @@ const ProductDetail = ({ product, categoryMeta }) => {
           </div>
 
           <div className={styles.priceRow}>
-            <span className={styles.price}>₹{product.price.toLocaleString("en-IN")}</span>
-            <span className={styles.originalPrice}>₹{originalPrice.toLocaleString("en-IN")}</span>
+            <span className={styles.price}>{formatPrice(product.price)}</span>
+            <span className={styles.originalPrice}>{formatPrice(originalPrice)}</span>
             <span className={styles.discountBadge}>{discountPercent}% OFF</span>
           </div>
           <p className={styles.taxNote}>Inclusive of all taxes</p>
@@ -210,16 +213,16 @@ const ProductDetail = ({ product, categoryMeta }) => {
                 )
               }
             >
-              <HeartIcon filled={isWishlisted} />
+              <HeartIcon size={18} filled={isWishlisted} />
             </button>
           </div>
           {feedback && <p className={styles.feedback}>{feedback}</p>}
 
           <div className={styles.trustBadges}>
-            <div className={styles.trustBadge}><LockIcon /> Secure Payments</div>
-            <div className={styles.trustBadge}><RefreshIcon /> Easy Returns</div>
-            <div className={styles.trustBadge}><CheckIcon /> Authentic Products</div>
-            <div className={styles.trustBadge}><GlobeIcon /> Worldwide Shipping</div>
+            <div className={styles.trustBadge}><LockIcon size={18} /> Secure Payments</div>
+            <div className={styles.trustBadge}><RefreshIcon size={18} /> Easy Returns</div>
+            <div className={styles.trustBadge}><ShieldIcon size={18} /> Authentic Products</div>
+            <div className={styles.trustBadge}><GlobeIcon size={18} /> Worldwide Shipping</div>
           </div>
         </div>
       </div>
@@ -325,14 +328,6 @@ function CloseIcon() {
   );
 }
 
-function HeartIcon({ filled = false }) {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z" />
-    </svg>
-  );
-}
-
 function StarIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -341,41 +336,3 @@ function StarIcon() {
   );
 }
 
-function LockIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="4" y="11" width="16" height="9" rx="2" />
-      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
-    </svg>
-  );
-}
-
-function RefreshIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 12a9 9 0 0 1 15.3-6.4L21 8" />
-      <path d="M21 3v5h-5" />
-      <path d="M21 12a9 9 0 0 1-15.3 6.4L3 16" />
-      <path d="M3 21v-5h5" />
-    </svg>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z" />
-      <path d="M9 12l2 2 4-4" />
-    </svg>
-  );
-}
-
-function GlobeIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="9" />
-      <path d="M3 12h18" />
-      <path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z" />
-    </svg>
-  );
-}

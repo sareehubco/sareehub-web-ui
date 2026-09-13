@@ -213,8 +213,8 @@
 }
 
 .colorSwatchActive {
-  border-color: var(--text-dark);
-  box-shadow: 0 0 0 2px var(--cream);
+  border-color: var(--cream);
+  box-shadow: 0 0 0 2px var(--maroon);
 }
 
 .qtySection {

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { userLogin } from "@/actions/UserActions";
 import customerService from "@/api/CustomerService";
+import CheckIcon from "@/icons/check-icon";
 import styles from "./index.module.css";
 
 const INITIAL_FORM = {
@@ -80,7 +81,7 @@ const AuthPage = () => {
       <main className={styles.page}>
         <div className={styles.card}>
           <span className={styles.successIcon}>
-            <CheckIcon />
+            <CheckIcon size={26} />
           </span>
           <h1>Account created!</h1>
           <p>Your SareeHub account is ready. Log in to continue.</p>
@@ -181,11 +182,3 @@ const AuthPage = () => {
 };
 
 export default AuthPage;
-
-function CheckIcon() {
-  return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}

@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { toggleItem } from "@/store/slice/WishlistSlice";
+import HeartIcon from "@/icons/heart-icon";
+import { formatPrice } from "@/lib/format";
 import styles from "./index.module.css";
 
 const PRICE_RANGES = [
@@ -237,7 +239,7 @@ const CollectionDetail = ({
                       )
                     }
                   >
-                    <HeartIcon filled={isWishlisted} />
+                    <HeartIcon size={15} filled={isWishlisted} />
                   </button>
                   <Link href={`/sarees/${product.slug}`} className={styles.cardLink}>
                     <div className={styles.imageWrap}>
@@ -251,7 +253,7 @@ const CollectionDetail = ({
                     </div>
                     <div className={styles.cardInfo}>
                       <h3>{product.name}</h3>
-                      <div className={styles.cardPrice}>₹{product.price.toLocaleString("en-IN")}</div>
+                      <div className={styles.cardPrice}>{formatPrice(product.price)}</div>
                     </div>
                   </Link>
                 </div>
@@ -299,11 +301,3 @@ const CollectionDetail = ({
 };
 
 export default CollectionDetail;
-
-function HeartIcon({ filled = false }) {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z" />
-    </svg>
-  );
-}

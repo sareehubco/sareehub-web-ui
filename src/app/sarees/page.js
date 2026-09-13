@@ -1,5 +1,5 @@
 import CollectionDetail from "@/components/collection-detail";
-import { ALL_PRODUCTS } from "../collections/all-products";
+import productService from "@/api/ProductService";
 
 export const metadata = { title: "All Sarees — SareeHub" };
 
@@ -17,13 +17,14 @@ const FABRIC_FACET = {
   ],
 };
 
-export default function SareesPage() {
+export default async function SareesPage() {
+  const products = await productService.getAllProducts();
   return (
     <CollectionDetail
       title="All Sarees"
       subtitle="Our complete collection — handpicked from every category."
       bannerImage="/images/banners/allsarees.png"
-      products={ALL_PRODUCTS}
+      products={products}
       secondaryFacet={FABRIC_FACET}
       breadcrumbParent={null}
     />

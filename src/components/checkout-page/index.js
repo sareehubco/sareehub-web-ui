@@ -8,9 +8,10 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { clearCart } from "@/store/slice/CartSlice";
 import { useBuyNowItem, clearBuyNowItem } from "@/store/buyNowItem";
 import { setPostLoginRedirect } from "@/actions/UserActions";
+import CheckIcon from "@/icons/check-icon";
+import { formatPrice } from "@/lib/format";
+import { calculateOrderTotals } from "@/lib/pricing";
 import styles from "./index.module.css";
-
-const TAX_RATE = 0.12;
 
 const DEFAULT_SHIPPING = {
   fullName: "",
@@ -143,10 +144,7 @@ const CheckoutPage = () => {
     }
   }
 
-  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const tax = Math.round(subtotal * TAX_RATE);
-  const total = subtotal + tax;
+  const { itemCount, subtotal, tax, total } = calculateOrderTotals(items);
 
   const updateField = (field) => (e) => {
     const value = field === "saveAddress" ? e.target.checked : e.target.value;
@@ -177,11 +175,11 @@ const CheckoutPage = () => {
       <main className={styles.page}>
         <div className={styles.placedState}>
           <span className={styles.placedIcon}>
-            <CheckIcon />
+            <CheckIcon size={28} />
           </span>
           <h1>Order Placed!</h1>
           <p>Thank you{shipping.fullName ? `, ${shipping.fullName.split(" ")[0]}` : ""} — your order has been placed successfully.</p>
-          <p className={styles.placedTotal}>Total paid: ₹{placedTotal.toLocaleString("en-IN")}</p>
+          <p className={styles.placedTotal}>Total paid: {formatPrice(placedTotal)}</p>
           <Link href="/sarees" className={styles.continueBtn}>
             Continue Shopping
           </Link>
@@ -199,7 +197,7 @@ const CheckoutPage = () => {
           <div className={styles.stepItemWrap} key={step.key}>
             <div className={styles.stepItem}>
               <span className={`${styles.stepCircle} ${i <= stepIndex ? styles.stepCircleActive : ""}`}>
-                {i < stepIndex ? <CheckIcon small /> : i + 1}
+                {i < stepIndex ? <CheckIcon size={12} /> : i + 1}
               </span>
               <span className={i <= stepIndex ? styles.stepLabelActive : styles.stepLabel}>{step.label}</span>
             </div>
@@ -367,7 +365,7 @@ const CheckoutPage = () => {
           <h2>Order Summary</h2>
           <div className={styles.summaryRow}>
             <span>{itemCount} items</span>
-            <span>₹{subtotal.toLocaleString("en-IN")}</span>
+            <span>{formatPrice(subtotal)}</span>
           </div>
           <div className={styles.summaryRow}>
             <span>Shipping</span>
@@ -375,11 +373,11 @@ const CheckoutPage = () => {
           </div>
           <div className={styles.summaryRow}>
             <span>Estimated Tax</span>
-            <span>₹{tax.toLocaleString("en-IN")}</span>
+            <span>{formatPrice(tax)}</span>
           </div>
           <div className={styles.summaryTotal}>
             <span>Total</span>
-            <span>₹{total.toLocaleString("en-IN")}</span>
+            <span>{formatPrice(total)}</span>
           </div>
 
           <div className={styles.summaryItems}>
@@ -390,7 +388,7 @@ const CheckoutPage = () => {
                 </div>
                 <div>
                   <div className={styles.summaryItemName}>{item.name}</div>
-                  <div className={styles.summaryItemPrice}>₹{item.price.toLocaleString("en-IN")}</div>
+                  <div className={styles.summaryItemPrice}>{formatPrice(item.price)}</div>
                 </div>
               </div>
             ))}
@@ -402,12 +400,3 @@ const CheckoutPage = () => {
 };
 
 export default CheckoutPage;
-
-function CheckIcon({ small = false }) {
-  const size = small ? 12 : 28;
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}
