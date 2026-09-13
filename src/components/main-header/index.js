@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { userLogin, userLogout } from "@/actions/UserActions";
+import { useAppSelector } from "@/store/hooks";
 import styles from "./index.module.css";
 
 const ANNOUNCEMENTS = [
@@ -54,6 +53,8 @@ function AnnouncementBar() {
 
 const MainHeader = () => {
   const pathname = usePathname();
+  const cartCount = useAppSelector((state) => state.cart.items.reduce((sum, item) => sum + item.quantity, 0));
+  const wishlistCount = useAppSelector((state) => state.wishlist.items.length);
 
   const linkClass = (href) => {
     const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -90,11 +91,12 @@ const MainHeader = () => {
           <Link href="/wishlist" className={styles.iconLink}>
             <HeartIcon />
             Wishlist
+            {wishlistCount > 0 && <span className={styles.cartBadge}>{wishlistCount}</span>}
           </Link>
           <Link href="/cart" className={styles.iconLink}>
             <BagIcon />
             Cart
-            <span className={styles.cartBadge}>0</span>
+            <span className={styles.cartBadge}>{cartCount}</span>
           </Link>
           <AccountMenu />
         </div>
@@ -114,78 +116,23 @@ const MainHeader = () => {
 export default MainHeader;
 
 function AccountMenu() {
-  const dispatch = useAppDispatch();
-  const { authenticated, firstName, lastName, email } = useAppSelector((state) => state.user);
-  const [open, setOpen] = useState(false);
-  const menuRef = useRef(null);
-
-  useEffect(() => {
-    if (!open) return undefined;
-
-    const handleClickOutside = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [open]);
+  const { authenticated, firstName, email } = useAppSelector((state) => state.user);
 
   if (!authenticated) {
     return (
-      <button
-        type="button"
-        className={styles.iconLink}
-        onClick={() => dispatch(userLogin())}
-      >
+      <Link href="/login" className={styles.iconLink}>
         <PersonIcon />
         Login
-      </button>
+      </Link>
     );
   }
 
   const initial = (firstName || email || "?").charAt(0).toUpperCase();
 
   return (
-    <div className={styles.accountMenu} ref={menuRef}>
-      <button
-        type="button"
-        className={styles.avatarBtn}
-        onClick={() => setOpen((prev) => !prev)}
-        aria-label="Account menu"
-        aria-expanded={open}
-      >
-        {initial}
-      </button>
-
-      {open && (
-        <div className={styles.accountDropdown}>
-          <div className={styles.accountName}>
-            {firstName} {lastName}
-          </div>
-          {email && <div className={styles.accountEmail}>{email}</div>}
-
-          <Link href="/wishlist" className={styles.accountItem} onClick={() => setOpen(false)}>
-            Wishlist
-          </Link>
-          <Link href="/cart" className={styles.accountItem} onClick={() => setOpen(false)}>
-            Orders
-          </Link>
-
-          <button
-            type="button"
-            className={styles.logoutBtn}
-            onClick={() => {
-              dispatch(userLogout());
-              setOpen(false);
-            }}
-          >
-            Logout
-          </button>
-        </div>
-      )}
-    </div>
+    <Link href="/account" className={styles.avatarBtn} aria-label="My Account">
+      {initial}
+    </Link>
   );
 }
 

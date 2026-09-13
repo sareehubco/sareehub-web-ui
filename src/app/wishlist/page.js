@@ -1,12 +1,7 @@
-import PlaceholderPage from "@/components/placeholder-page";
+import WishlistPage from "@/components/wishlist-page";
 
 export const metadata = { title: "Wishlist — SareeHub" };
 
-export default function WishlistPage() {
-  return (
-    <PlaceholderPage
-      title="Your Wishlist"
-      description="Saved sarees will appear here — coming soon."
-    />
-  );
+export default function Page() {
+  return <WishlistPage />;
 }

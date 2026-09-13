@@ -1,0 +1,408 @@
+.breadcrumb {
+  padding: 16px 64px 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.breadcrumb a {
+  text-decoration: none;
+  color: var(--text-muted);
+}
+
+.breadcrumb a:hover {
+  color: var(--maroon);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 40px;
+  padding: 24px 64px 48px;
+  align-items: start;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 12px;
+}
+
+.thumbnails {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.thumb {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.mainImageWrap {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--cream-2);
+  cursor: zoom-in;
+  border: none;
+  padding: 0;
+  width: 100%;
+  display: block;
+}
+
+.zoomHint {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--maroon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.zoomOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(20, 8, 8, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.zoomImageWrap {
+  position: relative;
+  width: min(90vw, 700px);
+  height: min(85vh, 900px);
+}
+
+.zoomCloseBtn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-dark);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.info h1 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.ratingRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gold);
+  margin-bottom: 14px;
+  font-size: 0.9rem;
+}
+
+.ratingRow span {
+  color: var(--text-muted);
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.price {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.originalPrice {
+  text-decoration: line-through;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.discountBadge {
+  color: #1a7a3c;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.taxNote {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.sellerRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  background: var(--cream-2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+}
+
+.sellerRow strong {
+  color: var(--text-dark);
+}
+
+.sellerRating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--gold);
+}
+
+.sellerRating svg {
+  flex-shrink: 0;
+}
+
+.description {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  max-width: 520px;
+}
+
+.sectionLabel {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.colorSection {
+  margin-bottom: 20px;
+}
+
+.colorSwatches {
+  display: flex;
+  gap: 10px;
+}
+
+.colorSwatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.colorSwatchActive {
+  border-color: var(--text-dark);
+  box-shadow: 0 0 0 2px var(--cream);
+}
+
+.qtySection {
+  margin-bottom: 24px;
+}
+
+.qtyControl {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-right: 12px;
+}
+
+.qtyButton {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: var(--cream-2);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.qtyButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.qtyValue {
+  width: 40px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.stockWarning {
+  font-size: 0.8rem;
+  color: #b5651d;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.addToCartBtn,
+.buyNowBtn {
+  flex: 1;
+  max-width: 220px;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.addToCartBtn {
+  background: var(--maroon);
+  color: var(--cream);
+  border: none;
+}
+
+.addToCartBtn:hover {
+  background: var(--maroon-dark);
+}
+
+.buyNowBtn {
+  background: var(--cream);
+  color: var(--maroon);
+  border: 1px solid var(--maroon);
+}
+
+.wishlistBtn {
+  flex: 0 0 auto;
+  width: 48px;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--cream);
+  color: var(--maroon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.wishlistBtnActive {
+  background: var(--maroon);
+  color: var(--cream);
+  border-color: var(--maroon);
+}
+
+.feedback {
+  font-size: 0.85rem;
+  color: #1a7a3c;
+  margin-bottom: 16px;
+  min-height: 1.2em;
+}
+
+.trustBadges {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.trustBadge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.trustBadge svg {
+  color: var(--maroon);
+  flex-shrink: 0;
+}
+
+.tabsSection {
+  padding: 0 64px 64px;
+}
+
+.tabList {
+  display: flex;
+  gap: 32px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.tabButton {
+  background: none;
+  border: none;
+  padding: 12px 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  font-family: inherit;
+}
+
+.tabButtonActive {
+  color: var(--maroon);
+  font-weight: 600;
+  border-bottom-color: var(--maroon);
+}
+
+.tabPanel {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 720px;
+}
+
+.tabPanel p {
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.specList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.specList li strong {
+  color: var(--text-dark);
+}
+
+@media (max-width: 900px) {
+  .breadcrumb,
+  .layout,
+  .tabsSection {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+  .thumbnails {
+    flex-direction: row;
+  }
+}

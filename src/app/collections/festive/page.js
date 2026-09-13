@@ -1,12 +1,15 @@
-import PlaceholderPage from "@/components/placeholder-page";
+import CollectionDetail from "@/components/collection-detail";
+import { PRODUCTS } from "./data";
 
 export const metadata = { title: "Festive Collection — SareeHub" };
 
 export default function FestiveCollectionPage() {
   return (
-    <PlaceholderPage
+    <CollectionDetail
       title="Festive Collection"
-      description="Sarees that make every occasion more special — coming soon."
+      subtitle="Celebrate every moment in style."
+      bannerImage="/images/banners/festive.png"
+      products={PRODUCTS}
     />
   );
 }

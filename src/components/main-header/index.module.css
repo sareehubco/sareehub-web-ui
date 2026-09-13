@@ -142,10 +142,6 @@
   border-radius: 999px;
 }
 
-.accountMenu {
-  position: relative;
-}
-
 .avatarBtn {
   width: 42px;
   height: 42px;
@@ -162,64 +158,10 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .avatarBtn:hover {
-  background: var(--maroon-dark);
-}
-
-.accountDropdown {
-  position: absolute;
-  top: calc(100% + 12px);
-  right: 0;
-  background: var(--cream);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  padding: 16px;
-  min-width: 200px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  z-index: 10;
-}
-
-.accountName {
-  font-weight: 700;
-  color: var(--text-dark);
-}
-
-.accountEmail {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-}
-
-.accountItem {
-  text-decoration: none;
-  color: var(--text-dark);
-  font-size: 0.9rem;
-  padding: 8px 0;
-  border-top: 1px solid var(--border);
-}
-
-.accountItem:hover {
-  color: var(--maroon);
-}
-
-.logoutBtn {
-  margin-top: 8px;
-  background: var(--maroon);
-  color: var(--cream);
-  border: none;
-  border-radius: 6px;
-  padding: 10px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
-.logoutBtn:hover {
   background: var(--maroon-dark);
 }
 
