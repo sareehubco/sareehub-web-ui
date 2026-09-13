@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { removeItem, setQuantity } from "@/store/slice/CartSlice";
 import { toggleItem } from "@/store/slice/WishlistSlice";
+import { clearBuyNowItem } from "@/store/buyNowItem";
 import { ALL_PRODUCTS } from "@/app/collections/all-products";
 import styles from "./index.module.css";
 
@@ -122,7 +123,7 @@ const CartPage = () => {
               <span>₹{total.toLocaleString("en-IN")}</span>
             </div>
 
-            <Link href="/checkout" className={styles.checkoutBtn}>
+            <Link href="/checkout" className={styles.checkoutBtn} onClick={() => clearBuyNowItem()}>
               Proceed to Checkout
             </Link>
 

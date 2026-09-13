@@ -3,10 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { getDerivedProductInfo } from "@/app/collections/product-derived";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { addItem } from "@/store/slice/CartSlice";
 import { toggleItem } from "@/store/slice/WishlistSlice";
+import { setBuyNowItem } from "@/store/buyNowItem";
 import styles from "./index.module.css";
 
 const COLORS = [
@@ -33,6 +35,7 @@ function capitalize(text) {
 
 const ProductDetail = ({ product, categoryMeta }) => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const isWishlisted = useAppSelector((state) => state.wishlist.items.some((item) => item.slug === product.slug));
   const { rating, reviewCount, stock, discountPercent, originalPrice, seller, sellerRating, sellerRatingCount } =
     getDerivedProductInfo(product);
@@ -178,17 +181,15 @@ const ProductDetail = ({ product, categoryMeta }) => {
               type="button"
               className={styles.buyNowBtn}
               onClick={() => {
-                dispatch(
-                  addItem({
-                    slug: product.slug,
-                    name: product.name,
-                    price: product.price,
-                    image: product.image,
-                    color: selectedColor,
-                    quantity,
-                  })
-                );
-                setFeedback("Added to cart — head to your cart to check out.");
+                setBuyNowItem({
+                  slug: product.slug,
+                  name: product.name,
+                  price: product.price,
+                  image: product.image,
+                  color: selectedColor,
+                  quantity,
+                });
+                router.push("/checkout");
               }}
             >
               Buy Now

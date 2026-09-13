@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { clearCart } from "@/store/slice/CartSlice";
+import { useBuyNowItem, clearBuyNowItem } from "@/store/buyNowItem";
 import { setPostLoginRedirect } from "@/actions/UserActions";
 import styles from "./index.module.css";
 
@@ -24,16 +25,6 @@ const DEFAULT_SHIPPING = {
 
 const DRAFT_KEY = "sareehub_checkout_shipping_draft";
 
-function loadShippingDraft() {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = window.sessionStorage.getItem(DRAFT_KEY);
-    return raw ? JSON.parse(raw) : null;
-  } catch {
-    return null;
-  }
-}
-
 function saveShippingDraft(shipping) {
   if (typeof window === "undefined") return;
   try {
@@ -50,6 +41,44 @@ function clearShippingDraft() {
   } catch {
     // ignore
   }
+}
+
+// Same no-same-tab-event reasoning as useBuyNowItem in src/store/buyNowItem.js.
+function subscribeDraftNoop() {
+  return () => {};
+}
+
+let cachedDraftRaw;
+let cachedDraftSnapshot = null;
+
+function readDraftSnapshot() {
+  if (typeof window === "undefined") return null;
+  let raw;
+  try {
+    raw = window.sessionStorage.getItem(DRAFT_KEY);
+  } catch {
+    return null;
+  }
+  if (raw !== cachedDraftRaw) {
+    cachedDraftRaw = raw;
+    try {
+      cachedDraftSnapshot = raw ? JSON.parse(raw) : null;
+    } catch {
+      cachedDraftSnapshot = null;
+    }
+  }
+  return cachedDraftSnapshot;
+}
+
+function getDraftServerSnapshot() {
+  return null;
+}
+
+// Reads the saved shipping draft without a hydration mismatch — see the
+// matching useBuyNowItem hook for why useSyncExternalStore instead of a
+// useEffect + setState.
+function useShippingDraftSnapshot() {
+  return useSyncExternalStore(subscribeDraftNoop, readDraftSnapshot, getDraftServerSnapshot);
 }
 
 const STEPS = [
@@ -73,20 +102,38 @@ const PAYMENT_METHODS = [
 const CheckoutPage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const items = useAppSelector((state) => state.cart.items);
+  const cartItems = useAppSelector((state) => state.cart.items);
   const authenticated = useAppSelector((state) => state.user.authenticated);
+  // "Buy Now" on a product page checks out just that saree, bypassing the
+  // shared cart entirely — when present, it takes over the whole checkout.
+  // Read via useSyncExternalStore (not useEffect + setState) so the server
+  // render and the client's first render match — see src/store/buyNowItem.js.
+  const buyNowItem = useBuyNowItem();
+  const items = buyNowItem ? [buyNowItem] : cartItems;
   const [stepIndex, setStepIndex] = useState(0);
   const [placed, setPlaced] = useState(false);
   const [placedTotal, setPlacedTotal] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState("card");
-  const [shipping, setShipping] = useState(() => loadShippingDraft() || DEFAULT_SHIPPING);
-  const [hasRestoredDraft, setHasRestoredDraft] = useState(() => loadShippingDraft() !== null);
+  const [shipping, setShipping] = useState(DEFAULT_SHIPPING);
+  const [hasAppliedDraft, setHasAppliedDraft] = useState(false);
+  const [hasRestoredDraft, setHasRestoredDraft] = useState(false);
   const [prevAuthenticated, setPrevAuthenticated] = useState(authenticated);
+
+  const shippingDraft = useShippingDraftSnapshot();
+
+  // Apply a restored draft into the editable shipping state exactly once.
+  // (Adjusting state during render, not in an effect, per
+  // https://react.dev/learn/you-might-not-need-an-effect — same reasoning as
+  // the authenticated check right below.)
+  if (shippingDraft && !hasAppliedDraft) {
+    setHasAppliedDraft(true);
+    setShipping(shippingDraft);
+    setHasRestoredDraft(true);
+  }
 
   // Coming back from the Keycloak login redirect: the shipping details typed in
   // before login are already restored above — just resume at the Payment step
-  // once the auth state flips to true. (Adjusting state during render, not in
-  // an effect, per https://react.dev/learn/you-might-not-need-an-effect)
+  // once the auth state flips to true.
   if (authenticated !== prevAuthenticated) {
     setPrevAuthenticated(authenticated);
     if (authenticated && hasRestoredDraft) {
@@ -301,7 +348,11 @@ const CheckoutPage = () => {
                   className={styles.continueBtn}
                   onClick={() => {
                     setPlacedTotal(total);
-                    dispatch(clearCart());
+                    if (buyNowItem) {
+                      clearBuyNowItem();
+                    } else {
+                      dispatch(clearCart());
+                    }
                     setPlaced(true);
                   }}
                 >
