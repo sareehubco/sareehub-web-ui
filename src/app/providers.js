@@ -3,8 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Provider } from "react-redux";
 import { makeStore } from "@/store";
+import { loadPersistedState } from "@/store/persist";
 import keycloak, { initKeycloak } from "@/auth/keycloak";
 import { setAuthenticated, setEmail, setUsername } from "@/store/slice/UserSlice";
+import { hydrateCart } from "@/store/slice/CartSlice";
+import { hydrateWishlist } from "@/store/slice/WishlistSlice";
 import { fetchCustomerDetails } from "@/actions/UserActions";
 
 export default function Providers({ children }) {
@@ -18,6 +21,12 @@ export default function Providers({ children }) {
   useEffect(() => {
     if (didInit.current) return;
     didInit.current = true;
+
+    // Runs only after the initial (hydration) render has committed, so this
+    // never causes a server/client markup mismatch — see src/store/index.js.
+    const persisted = loadPersistedState();
+    if (persisted.cart) store.dispatch(hydrateCart(persisted.cart.items));
+    if (persisted.wishlist) store.dispatch(hydrateWishlist(persisted.wishlist.items));
 
     (async () => {
       try {
